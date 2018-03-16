@@ -1,7 +1,7 @@
 #include<cstdlib>
 #include "piso.h"
 
-
+//hola
 
 piso::piso(unsigned int cantidad_filas, unsigned int cantidad_columnas)
 {	//creo matriz dinamica que contiene bools 1(limpio) 0 (sucio)
