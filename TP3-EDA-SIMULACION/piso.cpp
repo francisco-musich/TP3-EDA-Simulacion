@@ -51,6 +51,12 @@ unsigned int piso::get_columnas()
 	return cantidad_columnas;
 }
 
+bool piso::state_tile(int x, int y)	//Devuelve el estado de la baldosa, true(limpia)  false (sucia)
+{
+	return tiles[x][y];
+}
+
 piso::~piso()
 {
+	free(tiles); //nose si tengo que liberar los otros mallocs apuntados por este malloc
 }

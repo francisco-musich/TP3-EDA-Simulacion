@@ -115,12 +115,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="callback.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="parseCmdLine.cpp" />
     <ClCompile Include="piso.cpp" />
     <ClCompile Include="robot.cpp" />
     <ClCompile Include="simulacion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="callback.h" />
+    <ClInclude Include="estructura.h" />
+    <ClInclude Include="parseCmdLine.h" />
     <ClInclude Include="piso.h" />
     <ClInclude Include="robot.h" />
     <ClInclude Include="simulacion.h" />

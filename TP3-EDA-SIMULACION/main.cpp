@@ -13,6 +13,10 @@ using namespace std;
 
 //INCLUIR PARSER Y CALLBACK
 
+#include"callback.h"
+#include"parseCmdLine.h"
+
+
 int main()
 {
 	//INICIALIZAR ALLEGRO

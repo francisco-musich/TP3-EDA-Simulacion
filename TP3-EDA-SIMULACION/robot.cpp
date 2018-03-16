@@ -27,13 +27,23 @@ void robot::mover(unsigned int cantidad_filas,unsigned int cant_columnas )
 
 }
 
-punto_t robot::get_posicion()
+double robot::get_posicion_x()
 {
-	punto_t res;
-	res.x = posicion.x;
-	res.y = posicion.y;
+	double res;
+	res = posicion_x;
+	
 	return res;
 }
+
+double robot::get_posicion_y()
+{
+	double res;
+	res = posicion_y;
+
+	return res;
+}
+
+
 
 robot::~robot()
 {
