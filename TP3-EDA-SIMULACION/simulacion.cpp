@@ -1,5 +1,6 @@
 #include "simulacion.h"
 #include<stdlib.h>
+#include<cmath>
 
 
 simulacion::simulacion(unsigned int cant_robots,unsigned int filas,unsigned int columnas, bool modo)
@@ -10,7 +11,7 @@ simulacion::simulacion(unsigned int cant_robots,unsigned int filas,unsigned int 
 	{
 		for (int i = 0; i < cant_robots; i++)
 		{
-			rob_handler[i].create();  //nose como usar el constructor explicitamente, ni si se usa asi
+			rob_handler[i]=robot(f.get_filas,f.get_columnas);  //nose como usar el constructor explicitamente, ni si se usa asi
 		}
 		nro_robots = cant_robots;
 		mode = modo;
@@ -32,9 +33,11 @@ unsigned int simulacion::run()
 			for (int i = 0; i < nro_robots; i++)	//muevo todos los robots a su nueva direccion
 			{
 				rob_handler[i].mover(f.get_filas(), f.get_columnas());
+				//f.clean(floor(rob_handler[i].));
 			}
+			
 			sleep(TIEMPO_TICK); //Hay que verlo a ojo
-			imprimir_piso(rob_handler, nro_robots, f); //Funcion grafica. Mando puntero asi sacas la informacion directo de ahi, nose si se puede. 
+			//imprimir_piso( f); //Funcion grafica.
 			nro_ticks++;
 		}
 	}
@@ -55,4 +58,5 @@ unsigned int simulacion::run()
 
 simulacion::~simulacion()
 {
+	free(rob_handler);
 }
