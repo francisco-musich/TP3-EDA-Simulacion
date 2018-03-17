@@ -1,5 +1,5 @@
 #include "parseCmdLine.h"
-
+#include "estructura.h"
 
 int parseCmdLine(int argc,  char * argv[], pCallback p, void * userData)
 {

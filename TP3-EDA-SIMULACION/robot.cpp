@@ -6,22 +6,22 @@
 
 robot::robot(unsigned int cantidad_filas, unsigned int cantidad_columnas)
 {
-	posicion.x = (rand() % (cantidad_columnas - 1)); //asigno posicion al azar en x.(resto 1 asi no me voy de las baldosas)
-	posicion.y = (rand() % (cantidad_filas - 1)); //asigno posicion al azar en y
-	direccion = (rand() % (2.0 * PI)); //Asigno angulo al azar
+	posicion_x = (rand() % (cantidad_columnas - 1)); //asigno posicion al azar en x.(resto 1 asi no me voy de las baldosas)
+	posicion_y = (rand() % (cantidad_filas - 1)); //asigno posicion al azar en y
+	direccion = (rand() % 2) * PI; //Asigno angulo al azar
 }
 
 void robot::mover(unsigned int cantidad_filas,unsigned int cant_columnas )
 {
-	double temp_x = posicion.x;
-	double temp_y = posicion.y;
-	posicion.x += (cos(direccion)); //Asigno nueva posicion al robot. La unidad(hipotenusa) es de 1.
-	posicion.y += (sin(direccion));
-	if ((posicion.x > cant_columnas) || (posicion.y > cantidad_filas) || (posicion.x < 0) || (posicion.y < 0))  //Chequeo que la nueva posicion no salga de los parametros
+	double temp_x = posicion_x;
+	double temp_y = posicion_y;
+	posicion_x += (cos(direccion)); //Asigno nueva posicion al robot. La unidad(hipotenusa) es de 1.
+	posicion_y += (sin(direccion));
+	if ((posicion_x > cant_columnas) || (posicion_y > cantidad_filas) || (posicion_x < 0) || (posicion_y < 0))  //Chequeo que la nueva posicion no salga de los parametros
 	{
-		posicion.x = temp_x;
-		posicion.y = temp_y;
-		direccion = (rand() % (2.0 * PI)); //Asigno angulo al azar
+		posicion_x = temp_x;	//mantengo la posicion en la que estaba antes
+		posicion_y = temp_y;
+		direccion = (rand() %2) * PI; //Asigno angulo al azar
 	}
 	return;
 

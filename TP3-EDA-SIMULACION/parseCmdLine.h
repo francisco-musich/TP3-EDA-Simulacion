@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdio.h>
-#include "errors and structures.h"
+
 
 
 typedef int(*pCallback) (char *, char*, void *);

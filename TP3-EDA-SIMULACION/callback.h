@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <string>
-#include "errors and structures.h"
+
 
 #define MAX_HEIGHT 100
 #define MAX_WIDTH 70

@@ -1,12 +1,12 @@
 #include "simulacion.h"
 #include<stdlib.h>
 #include<cmath>
-
+#include <Windows.h>
 
 simulacion::simulacion(unsigned int cant_robots,unsigned int filas,unsigned int columnas, bool modo)
 {
-	// f.create();  //Creo que se hace implicitamente
-	rob_handler =(robot*) calloc(cant_robots * sizeof(robot));  //Creo malloc con cantidad de robots necesarios para crear
+	f.iniciar(filas,columnas);
+	rob_handler =(robot*) calloc(cant_robots , sizeof(robot));  //Creo malloc con cantidad de robots necesarios para crear
 	if (!rob_handler)
 	{
 		for (int i = 0; i < cant_robots; i++)
@@ -20,7 +20,7 @@ simulacion::simulacion(unsigned int cant_robots,unsigned int filas,unsigned int 
 	{
 		 f.~piso();	//creo que es el destructor
 	}
-	return (rob_handler == NULL);
+	//return (rob_handler == NULL);
 }
 
 unsigned int simulacion::run()
@@ -36,7 +36,7 @@ unsigned int simulacion::run()
 				f.clean(floor(rob_handler[i].get_posicion_x()),floor(rob_handler[i].get_posicion_y()));	//limpio la baldosa corrspondiente
 			}
 			
-			sleep(TIEMPO_TICK); //Hay que verlo a ojo
+			Sleep(TIMER_TICK*1000); //Hay que verlo a ojo
 			//imprimir_piso( f); //Funcion grafica.
 			nro_ticks++;
 		}

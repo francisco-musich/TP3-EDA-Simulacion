@@ -15,19 +15,33 @@ using namespace std;
 
 #include"callback.h"
 #include"parseCmdLine.h"
+#include "estructura.h"
 
-
-int main()
+int main(int argc, char *argv[])
 {
 	//INICIALIZAR ALLEGRO
 
-	userParams userData; //crear estructura para el parser
-	parseCmdline(argc, argv, callback, &userData); //Llamo al parser(hay que hacerlo)  
+	userInput_t userData; //crear estructura para el parser
+	switch (parseCmdLine(argc, argv, &organizeInfo, &userData))
+	{
+	case ERRORTYPE1:
+		printf("Error type 1\n");
+		help();
+		break;
+	case ERRORTYPE2:
+		printf("Error type 2\n");
+		help();
+		break;
+
+	case ERRORTYPE3:
+		printf("Error type 3\n");
+		help();
+		break;
 	srand(time(NULL));
 
 	if (userData.modo == MODO1)
 	{
-		simulacion simu(userData.cant_robots, userData.filas, userData.columnas, userData.modo); //Creo objeto simulacion
+		simulacion simu(userData.cant_robots, userData.width, userData.height, userData.modo); //Creo objeto simulacion
 
 		simu.run();	//corro simulacion
 		simu.~simulacion(); //destruyo simulacion
