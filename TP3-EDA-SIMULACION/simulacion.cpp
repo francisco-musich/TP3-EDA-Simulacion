@@ -1,4 +1,5 @@
 #include "simulacion.h"
+#include "estructura.h"
 #include<stdlib.h>
 #include<cmath>
 #include <Windows.h>
@@ -26,7 +27,7 @@ simulacion::simulacion(unsigned int cant_robots,unsigned int filas,unsigned int 
 unsigned int simulacion::run()
 {
 	unsigned int nro_ticks = 0;
-	if (mode)
+	if (mode==MODO1)		//Decido modo 1 i modo 2
 	{	
 		while (f.isDirty()) //Modo SImulacion
 		{
