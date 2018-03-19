@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="callback.cpp" />
+    <ClCompile Include="display.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parseCmdLine.cpp" />
     <ClCompile Include="piso.cpp" />
@@ -124,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callback.h" />
+    <ClInclude Include="display.h" />
     <ClInclude Include="estructura.h" />
     <ClInclude Include="parseCmdLine.h" />
     <ClInclude Include="piso.h" />

@@ -8,11 +8,11 @@ simulacion::simulacion(unsigned int cant_robots,unsigned int filas,unsigned int 
 {
 	f.iniciar(filas,columnas);
 	rob_handler =(robot*) calloc(cant_robots , sizeof(robot));  //Creo malloc con cantidad de robots necesarios para crear
-	if (!rob_handler)
+	if (rob_handler)
 	{
 		for (int i = 0; i < cant_robots; i++)
 		{
-			rob_handler[i]=robot(f.get_filas,f.get_columnas);  //nose como usar el constructor explicitamente, ni si se usa asi
+			rob_handler[i]=robot(f.get_filas(),f.get_columnas());  //nose como usar el constructor explicitamente, ni si se usa asi
 		}
 		nro_robots = cant_robots;
 		mode = modo;
