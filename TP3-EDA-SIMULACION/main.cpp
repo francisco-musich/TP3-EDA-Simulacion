@@ -26,17 +26,18 @@ int main(int argc, char *argv[])
 	{
 	case ERRORTYPE1:
 		printf("Error type 1\n");
-		help();
+
 		break;
 	case ERRORTYPE2:
 		printf("Error type 2\n");
-		help();
+
 		break;
 
 	case ERRORTYPE3:
 		printf("Error type 3\n");
-		help();
+
 		break;
+	}
 	srand(time(NULL));
 
 	if (userData.modo == MODO1)
@@ -54,7 +55,7 @@ int main(int argc, char *argv[])
 			double sum = 0.0;
 			for (int cant_sim = 0; cant_sim < MAX_SIMS; cant_sim++)
 			{
-				simulacion simu(parametros);
+				simulacion simu(userData.cant_robots, userData.width, userData.height, userData.modo);
 				sum +=simu.run();
 				simu.~simulacion();
 			}
