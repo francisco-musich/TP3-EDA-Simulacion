@@ -26,16 +26,16 @@ int main(int argc, char *argv[])
 	{
 	case ERRORTYPE1:
 		printf("Error type 1\n");
-
+		while (getchar() != '\n');	//Afrefo asi no desaparece la consola
 		break;
 	case ERRORTYPE2:
 		printf("Error type 2\n");
-
+		while (getchar() != '\n');
 		break;
 
 	case ERRORTYPE3:
 		printf("Error type 3\n");
-
+		while (getchar() != '\n');
 		break;
 	}
 	srand(time(NULL));
