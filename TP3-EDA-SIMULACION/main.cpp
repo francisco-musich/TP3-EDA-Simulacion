@@ -53,13 +53,16 @@ int main(int argc, char *argv[])
 		for (int i = 2; i < MAX_ROBOTS; i++)	//falta agregar condicional s(n-1)-s(n)<1
 		{
 			double sum = 0.0;
+			double test2;
 			for (int cant_sim = 0; cant_sim < MAX_SIMS; cant_sim++)
 			{
-				simulacion simu(userData.cant_robots, userData.width, userData.height, userData.modo);
-				sum += simu.run();
+				simulacion simu(i, userData.width, userData.height, userData.modo);
+				sum += simu.run();			
 				simu.~simulacion();
+				
 			}
-			ticks_promedio[i] = sum / 1000;
+			ticks_promedio[i] = sum / MAX_SIMS;
+			printf("ticks promedio = %f", (sum / 50));
 			// funcion_grafica_analitica();  //falta implementar
 		}
 	}

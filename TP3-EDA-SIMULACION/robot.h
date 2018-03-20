@@ -13,3 +13,4 @@ private:
 	double posicion_y;
 	double direccion;
 };
+double randZeroToOne();

@@ -51,6 +51,7 @@ unsigned int simulacion::run()
 			for (int i = 0; i < nro_robots; i++)	//muevo todos los robots a su nueva direccion
 			{
 				rob_handler[i].mover(f.get_filas(), f.get_columnas());
+				f.clean(floor(rob_handler[i].get_posicion_x()), floor(rob_handler[i].get_posicion_y()));	//limpio la baldosa corrspondiente
 			}
 			nro_ticks++;
 		}

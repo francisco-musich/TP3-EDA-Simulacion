@@ -1,4 +1,5 @@
 #include<cstdlib>
+#include<cstdio>
 #include "piso.h"
 
 
@@ -41,6 +42,8 @@ bool piso::clean(int x, int y)
 	else
 	{
 		tiles[y][x] = true; //pongo en verdad(limpio) esa baldosa
+		printf("baldosa y=%d, x=%d limpia \n", y, x);
+
 	}
 	return validez;
 }

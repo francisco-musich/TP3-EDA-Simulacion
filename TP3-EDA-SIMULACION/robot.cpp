@@ -9,7 +9,7 @@ robot::robot(unsigned int cantidad_filas, unsigned int cantidad_columnas)
 {
 	posicion_x = (rand() % (cantidad_columnas - 1)); //asigno posicion al azar en x.(resto 1 asi no me voy de las baldosas)
 	posicion_y = (rand() % (cantidad_filas/* - 1*/)); //asigno posicion al azar en y
-	direccion = (rand() % 2) * PI; //Asigno angulo al azar
+	direccion = (2.0*randZeroToOne()) * PI; //Asigno angulo al azar
 }
 
 void robot::mover(unsigned int cantidad_filas, unsigned int cant_columnas)
@@ -22,7 +22,7 @@ void robot::mover(unsigned int cantidad_filas, unsigned int cant_columnas)
 	{
 		posicion_x = temp_x;	//mantengo la posicion en la que estaba antes
 		posicion_y = temp_y;
-		direccion = (rand() % 2) * PI; //Asigno angulo al azar
+		direccion = (2.0*randZeroToOne()) * PI; //Asigno angulo al azar
 	}
 	return;
 
@@ -48,4 +48,9 @@ double robot::get_posicion_y()
 
 robot::~robot()
 {
+}
+
+double randZeroToOne()
+{
+	return rand() / (RAND_MAX + 1.);
 }
