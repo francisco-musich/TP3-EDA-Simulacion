@@ -11,50 +11,46 @@
 #include <stdio.h>
 #include <math.h>
 
-	/*cosas que hay que meter en el main
+/*cosas que hay que meter en el main
+ALLEGRO_DISPLAY *display = NULL;
+if(!al_init()) {
+fprintf(stderr, "Couldn't initialize allegro!\n");
+return -1;
+}
+if(!al_init_primitives_addon()) {
+fprintf(stderr, "Couldn't initialize primitives addon!\n");
+return -1;
+}
+display = al_create_display(H,W);
+if(!display) {
+fprintf(stderr, "Couldn't create allegro display!\n");
+return -1;
+}
+al_clear_to_color(al_map_rgb(0, 0, 0));
+*/
 
-	ALLEGRO_DISPLAY *display = NULL;
-	if(!al_init()) {
-	fprintf(stderr, "Couldn't initialize allegro!\n");
-	return -1;
-	}
-	if(!al_init_primitives_addon()) {
-	fprintf(stderr, "Couldn't initialize primitives addon!\n");
-	return -1;
-	}
-	display = al_create_display(H,W);
-	if(!display) {
-	fprintf(stderr, "Couldn't create allegro display!\n");
-	return -1;
-	}
-	al_clear_to_color(al_map_rgb(0, 0, 0));
-	*/ 
+/* Ejemplo de uso 2 - variables que use para simular un arreglo de robots con distintos promedios de ticks
 
-	/* Ejemplo de uso 2 - variables que use para simular un arreglo de robots con distintos promedios de ticks
-	
+const unsigned int Nrobots = 6;
+double arregloR[Nrobots];
+arregloR[0] = 1438.30;
+arregloR[1] = 931.56;
+arregloR[2] = 543.1;
+arregloR[3] = 321.9;
+arregloR[4] = 45.9;
+arregloR[5] = 35.9;
+diagramabarras(Nrobots, arregloR);
+*/
 
-	const unsigned int Nrobots = 6;
-	double arregloR[Nrobots];
-	arregloR[0] = 1438.30;
-	arregloR[1] = 931.56;
-	arregloR[2] = 543.1;
-	arregloR[3] = 321.9;
-	arregloR[4] = 45.9;
-	arregloR[5] = 35.9;
-
-	diagramabarras(Nrobots, arregloR);
-	*/
-
-	/* Ejemplo de uso 1 - 
-	inicializarpiso(FIL,COL,arreglo);
-	al_flip_display();
-	al_rest(5.0);
-
-	arreglo[3][1] = 1;
-	displaypiso(FIL, COL, arreglo);
-	al_flip_display();
-	al_rest(15.0);
-	*/
+/* Ejemplo de uso 1 -
+inicializarpiso(FIL,COL,arreglo);
+al_flip_display();
+al_rest(5.0);
+arreglo[3][1] = 1;
+displaypiso(FIL, COL, arreglo);
+al_flip_display();
+al_rest(15.0);
+*/
 
 
 void diagramabarras(unsigned int cantidad_robots, double * arregloR)
@@ -68,12 +64,12 @@ void diagramabarras(unsigned int cantidad_robots, double * arregloR)
 	ALLEGRO_FONT* font = al_create_builtin_font();
 
 
-	al_draw_line(easyx, easyy*7, easyx, easyy, al_map_rgb(255, 0, 255), 1); //carga los 2 ejes
-	al_draw_line(easyx, easyy*7, easyx*7, easyy*7, al_map_rgb(255, 0, 255), 1);
+	al_draw_line(easyx, easyy * 7, easyx, easyy, al_map_rgb(255, 0, 255), 1); //carga los 2 ejes
+	al_draw_line(easyx, easyy * 7, easyx * 7, easyy * 7, al_map_rgb(255, 0, 255), 1);
 
 	for (int i = 1; i <= cantidad_robots; i++) //Carga los numeros de los robots en el display
 	{
-		al_draw_textf(font, al_map_rgb(255, 0, 255), easyx + (i*x1), easyy*7, ALLEGRO_ALIGN_LEFT, "%d",i);
+		al_draw_textf(font, al_map_rgb(255, 0, 255), easyx + (i*x1), easyy * 7, ALLEGRO_ALIGN_LEFT, "%d", i);
 	}
 
 	int cap = 0;
@@ -126,7 +122,7 @@ void displaypiso(unsigned int cantidad_filas, unsigned int cantidad_columnas, in
 	{
 		for (int j = 0; j < cantidad_columnas; j++)
 		{
-			if(arreglo[i][j] == 1)
+			if (arreglo[i][j] == 1)
 				al_draw_filled_rectangle(i * (H / cantidad_filas), j * (W / cantidad_columnas), i * (H / cantidad_filas) + ((H / cantidad_filas) - 1), j * (W / cantidad_columnas) + ((W / cantidad_columnas) - 1), al_map_rgb(155, 50, 155));
 			else
 				al_draw_filled_rectangle(i * (H / cantidad_filas), j * (W / cantidad_columnas), i * (H / cantidad_filas) + ((H / cantidad_filas) - 1), j * (W / cantidad_columnas) + ((W / cantidad_columnas) - 1), al_map_rgb(255, 0, 255));

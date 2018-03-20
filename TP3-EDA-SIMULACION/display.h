@@ -11,7 +11,7 @@
 void inicializarpiso(unsigned int cantidad_filas, unsigned int cantidad_columnas, int arreglo[FIL][COL]); //carga 0 en cada valor del arreglo y carga en el display el piso
 
 void displaypiso(unsigned int cantidad_filas, unsigned int cantidad_columnas, int arreglo[FIL][COL]); //funcion para actualizar el display del piso
-//OJO, el arreglo fila 1 columna 3 va a ser simetricamente opuesto diagonalmente, ya que el 0,0 esta en la esquina superior izquiera, sin embargo no lo altere porque no importa como estan ordenadas las filas y columnas mientras se tengan las cordenadas
+																									  //OJO, el arreglo fila 1 columna 3 va a ser simetricamente opuesto diagonalmente, ya que el 0,0 esta en la esquina superior izquiera, sin embargo no lo altere porque no importa como estan ordenadas las filas y columnas mientras se tengan las cordenadas
 
 void diagramabarras(unsigned int cantidad_robots, double * arregloR);
 

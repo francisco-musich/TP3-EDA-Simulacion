@@ -2,11 +2,11 @@
 class piso
 {
 public:
-	piso();
+
 	piso(unsigned int cantidad_filas, unsigned int cantidad_columnas);//constructora de piso
 	bool iniciar(unsigned int cantidad_filas, unsigned int cantidad_columnas);
 	~piso();
-	bool clean(int x,int y);  //Usada para limpiar baldosas
+	bool clean(int x, int y);  //Usada para limpiar baldosas
 	bool isDirty();	//funcion que te devuelve si todo el piso esta limpio
 	bool state_tile(int x, int y); //FALTA HACERLA DEVUELVE EL ESTADO DE LA BALDOSA
 	unsigned int get_filas();	//getter cantidad de filas
@@ -15,8 +15,7 @@ public:
 
 private:
 	bool ** tiles; //puntero para apuntar al futuro piso
-	unsigned int cantidad_filas; 
-	unsigned int cantidad_columnas; 
+	unsigned int cantidad_filas;
+	unsigned int cantidad_columnas;
 
 };
-

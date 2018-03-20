@@ -1,10 +1,11 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "callback.h"
 #include "estructura.h"
 
 int organizeInfo(char * pass, char * value, void * userData)
 {
 	userInput_t * usr = (userInput_t *)userData;
-	bool retValue = true;
+	int retValue = myNOERROR;
 	if (pass)
 	{
 		if ((!usr->modo) && !strcmp(_strlwr((char *)pass), "modo"))

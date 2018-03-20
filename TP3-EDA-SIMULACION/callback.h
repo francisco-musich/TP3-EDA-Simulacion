@@ -8,6 +8,6 @@
 #define MAX_HEIGHT 100
 #define MAX_WIDTH 70
 
-#define ERRORTYPE3 false
+//#define ERRORTYPE3 false
 
 int organizeInfo(char * pass, char * value, void * userData);

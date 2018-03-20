@@ -20,7 +20,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	//INICIALIZAR ALLEGRO
-
+	unsigned int test;
 	userInput_t userData; //crear estructura para el parser
 	switch (parseCmdLine(argc, argv, &organizeInfo, &userData))
 	{
@@ -42,12 +42,12 @@ int main(int argc, char *argv[])
 
 	if (userData.modo == MODO1)
 	{
-		simulacion simu(userData.cant_robots, userData.width, userData.height, userData.modo); //Creo objeto simulacion
+		simulacion simu(userData.cant_robots, userData.height, userData.width, userData.modo); //Creo objeto simulacion
 
-		simu.run();	//corro simulacion
+		test = simu.run();	//corro simulacion
 		simu.~simulacion(); //destruyo simulacion
 	}
-	else
+	else if (userData.modo == MODO2)
 	{
 		double ticks_promedio[MAX_SIMS]; //arreglo donde guardo todos los promedios
 		for (int i = 2; i < MAX_ROBOTS; i++)	//falta agregar condicional s(n-1)-s(n)<1
@@ -56,12 +56,13 @@ int main(int argc, char *argv[])
 			for (int cant_sim = 0; cant_sim < MAX_SIMS; cant_sim++)
 			{
 				simulacion simu(userData.cant_robots, userData.width, userData.height, userData.modo);
-				sum +=simu.run();
+				sum += simu.run();
 				simu.~simulacion();
 			}
 			ticks_promedio[i] = sum / 1000;
 			// funcion_grafica_analitica();  //falta implementar
 		}
 	}
-
+	printf("TEST = %d", test);
+	while (getchar() != '\n');
 }

@@ -6,18 +6,16 @@
 class simulacion
 {
 public:
-	simulacion(unsigned int cant_robots, unsigned int filas, unsigned int columnas, bool modo);
+	simulacion(unsigned int cant_robots, unsigned int filas, unsigned int columnas, int modo);
 	~simulacion();
 	unsigned int run();
 
 
-
 private:
 
-	piso f;
-	robot * rob_handler; //nose
+	piso f;						//piso donde se correra la simulacion
+	robot * rob_handler;		//nose
 	unsigned int ticks;
-	bool mode;
-	unsigned int nro_robots;
+	int mode;					//modo en que se eligio correr la simulacion
+	unsigned int nro_robots;	//numero de robots con los que se corre la simulacion
 };
-

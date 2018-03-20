@@ -1,5 +1,6 @@
 #include "robot.h"
 #include<cstdlib>
+#include <math.h>
 
 #define PI 3.14159265
 
@@ -7,11 +8,11 @@
 robot::robot(unsigned int cantidad_filas, unsigned int cantidad_columnas)
 {
 	posicion_x = (rand() % (cantidad_columnas - 1)); //asigno posicion al azar en x.(resto 1 asi no me voy de las baldosas)
-	posicion_y = (rand() % (cantidad_filas - 1)); //asigno posicion al azar en y
+	posicion_y = (rand() % (cantidad_filas/* - 1*/)); //asigno posicion al azar en y
 	direccion = (rand() % 2) * PI; //Asigno angulo al azar
 }
 
-void robot::mover(unsigned int cantidad_filas,unsigned int cant_columnas )
+void robot::mover(unsigned int cantidad_filas, unsigned int cant_columnas)
 {
 	double temp_x = posicion_x;
 	double temp_y = posicion_y;
@@ -21,7 +22,7 @@ void robot::mover(unsigned int cantidad_filas,unsigned int cant_columnas )
 	{
 		posicion_x = temp_x;	//mantengo la posicion en la que estaba antes
 		posicion_y = temp_y;
-		direccion = (rand() %2) * PI; //Asigno angulo al azar
+		direccion = (rand() % 2) * PI; //Asigno angulo al azar
 	}
 	return;
 
@@ -31,7 +32,7 @@ double robot::get_posicion_x()
 {
 	double res;
 	res = posicion_x;
-	
+
 	return res;
 }
 
