@@ -11,9 +11,6 @@
 #include <stdio.h>
 #include <math.h>
 
-
-
-
 /*
 	double  valori = 200; //valor inicial del lado de baldosa
 	while (FIL*valori > 2000 || COL * valori >2000) //si el largo total o altura total superior es mayor a 1000, se divide valori por 2
@@ -67,7 +64,7 @@
 		arregloR[20] = 35.9;
 
 
-		diagramabarras(Nrobots, arregloR, H, W);
+		diagramabarras(Nrobots, arregloR);
 
 		al_rest(15.0);
 		
@@ -75,7 +72,7 @@
 		
 
 		arreglo[3][1] = 1;
-		displaypiso(FIL, COL, arreglo);
+		displaypiso(FIL, COL, arreglo, H, W);
 		al_flip_display();
 		al_rest(15.0);
 
@@ -83,8 +80,22 @@
 
 */
 
-void diagramabarras(unsigned int cantidad_robots, double * arregloR, double H, double W)
+void diagramabarras(unsigned int cantidad_robots, double * arregloR)
 {
+	//cambiar por                      void diagramabarras(double * arregloR)
+	//y tambien el display.h                   void diagramabarras(double * arregloR)
+
+	/*y descomentar esto:
+
+	int cantidad_robots;
+	unsigned int n = 0;
+	while ((arregloR[n] / arregloR[(n - 1)]) > 0, 1)
+	{
+		cantidad_robots++;
+	}
+	*/
+
+
 	double easyx = H2 / 8.0;
 	double easyy = W2 / 8.0;
 	double maximoticks = maximo(arregloR, cantidad_robots); 	//funcion que da el maximoticks
@@ -134,7 +145,7 @@ void diagramabarras(unsigned int cantidad_robots, double * arregloR, double H, d
 
 
 
-void displaypiso(unsigned int cantidad_filas, unsigned int cantidad_columnas, int arreglo[FIL][COL])
+void displaypiso(unsigned int cantidad_filas, unsigned int cantidad_columnas, int arreglo[FIL][COL], double H, double W)
 {
 	//esto no va
 	for (int i = 0; i < cantidad_filas; i++)
