@@ -62,10 +62,11 @@ int main(int argc, char *argv[])
 				
 			}
 			ticks_promedio[i] = sum / MAX_SIMS;
-			printf("ticks promedio = %f", (sum / 50));
+			//printf("ticks promedio = %f", (sum / MAX_SIMS));
 			// funcion_grafica_analitica();  //falta implementar
 		}
+		printf("hola");
 	}
-	printf("TEST = %d", test);
+	
 	while (getchar() != '\n');
 }

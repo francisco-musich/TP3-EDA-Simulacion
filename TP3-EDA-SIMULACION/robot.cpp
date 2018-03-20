@@ -18,7 +18,7 @@ void robot::mover(unsigned int cantidad_filas, unsigned int cant_columnas)
 	double temp_y = posicion_y;
 	posicion_x += (cos(direccion)); //Asigno nueva posicion al robot. La unidad(hipotenusa) es de 1.
 	posicion_y += (sin(direccion));
-	if ((posicion_x > cant_columnas) || (posicion_y > cantidad_filas) || (posicion_x < 0) || (posicion_y < 0))  //Chequeo que la nueva posicion no salga de los parametros
+	if ((posicion_x >= cant_columnas) || (posicion_y >= cantidad_filas) || (posicion_x < 0) || (posicion_y < 0))  //Chequeo que la nueva posicion no salga de los parametros
 	{
 		posicion_x = temp_x;	//mantengo la posicion en la que estaba antes
 		posicion_y = temp_y;

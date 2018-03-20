@@ -15,5 +15,5 @@ typedef struct {
 #define ERRORTYPE3 3
 #define myNOERROR 4
 
-#define MAX_SIMS 50
-#define MAX_ROBOTS 20
+#define MAX_SIMS 1000
+#define MAX_ROBOTS 1000
