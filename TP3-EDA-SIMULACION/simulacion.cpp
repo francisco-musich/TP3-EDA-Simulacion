@@ -52,7 +52,7 @@ unsigned int simulacion::run(double valori, ALLEGRO_BITMAP * robot_image, ALLEGR
 				rob_handler[i].mover(f.get_filas(), f.get_columnas()); //muevo el robot
 				f.clean(floor(rob_handler[i].get_posicion_x()), floor(rob_handler[i].get_posicion_y()));	//limpio la baldosa corrspondiente
 			}
-			al_rest(0.1);
+			al_rest(0.3);
 			displaypiso(f, piso_sucio, piso_limpio, valori); //Funcion grafica
 			displayR(rob_handler, nro_robots, valori, robot_image);
 			al_flip_display();

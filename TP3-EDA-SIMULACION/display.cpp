@@ -176,7 +176,7 @@ void displayR(robot * rob_handler ,unsigned int cantidad_robots, double valori, 
 		int y = floor(rob_handler[i].get_posicion_y());
 		
 		//al_draw_filled_rectangle(y*valori + (valori / 5),  (x*valori) + (valori / 5), (y + 1)*valori - (valori / 5),  ((x + 1) * valori) - (valori / 5), (al_map_rgb(0, 0, 255)));
-		al_draw_scaled_bitmap(bitmap, 0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), y*valori + (valori / 5), (x*valori) + (valori / 5), valori * 3 / 5, valori * 3 / 5, 0);
+		al_draw_scaled_bitmap(bitmap, 0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), y*valori + (valori / 9), (x*valori) + (valori / 9), valori * 4 /5 , valori * 4 / 5, 0);
 
 	}
 	
