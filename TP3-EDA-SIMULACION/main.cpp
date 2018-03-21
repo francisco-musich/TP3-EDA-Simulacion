@@ -26,8 +26,6 @@ using namespace std;
 #include "estructura.h"
 
 
-//hhhhh
-
 int main(int argc, char *argv[])
 {
 	//INICIALIZAR ALLEGRO
@@ -52,7 +50,7 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 	//Cargo Imagenes
-	piso_limpio = al_load_bitmap("piso_limpio_posta,png");	
+	piso_limpio = al_load_bitmap("piso_limpio_posta.png");	
 	if (!piso_limpio)
 	{
 		printf("Error piso limpio");
