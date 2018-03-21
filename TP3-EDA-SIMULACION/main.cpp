@@ -25,9 +25,13 @@ using namespace std;
 #include"parseCmdLine.h"
 #include "estructura.h"
 
+
 //PROTOTIPOS FUNCIONES INTERNAS
 bool are_parametres_ok(userInput_t userData);
 bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BITMAP **piso_limpio, ALLEGRO_BITMAP **robot_imagen, ALLEGRO_SAMPLE ** musica1, ALLEGRO_SAMPLE ** musica2);
+
+//PROTOTIPOS FUNCIONES INTERNAS
+bool are_parametres_ok(userInput_t userData);
 
 
 int main(int argc, char *argv[])
@@ -66,7 +70,7 @@ int main(int argc, char *argv[])
 		while (getchar() != '\n');
 		return 0;
 	}
-	
+
 	srand(time(NULL));
 
 	double  valori = LADO_BALDOSA_MAX; //valor inicial del lado de baldosa
@@ -80,9 +84,10 @@ int main(int argc, char *argv[])
 
 	if (are_parametres_ok(userData))
 	{
+		double valor_ticks;
 		if (userData.modo == MODO_A)
 		{
-			double valor_ticks;
+			
 			display = al_create_display(H, W);
 			if (!display) {
 				fprintf(stderr, "Couldn't create allegro display!\n");
@@ -91,20 +96,36 @@ int main(int argc, char *argv[])
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
+
+
 			simulacion simu(userData.cant_robots, userData.height, userData.width, userData.modo, H, W); //Creo objeto simulacion
 
-		valor_ticks = simu.run(valori,robot_imagen, piso_sucio, piso_limpio, sonido_robot);	//corro simulacion
-		///simu.~simulacion(); //destruyo simulacion
-		printf("La simulacion termino correctamente\n Los %d robots hand terminado en %5.0f ticks \n",userData.cant_robots,valor_ticks);
-	}
-	else if (userData.modo == MODO_B)
-	{
-		double ticks_promedio[MAX_SIMS]; //arreglo donde guardo todos los promedios
+			valor_ticks = simu.run(valori, robot_imagen, piso_sucio, piso_limpio, sonido_robot);	//corro simulacion
+																									///simu.~simulacion(); //destruyo simulacion
+			printf("La simulacion termino correctamente\n Los %d robots hand terminado en %5.0f ticks \n", userData.cant_robots, valor_ticks);
+		}
+		else if (userData.modo == MODO_B)
+		{
+			double ticks_promedio[MAX_SIMS]; //arreglo donde guardo todos los promedios
+
+			simulacion simu(userData.cant_robots, userData.height, userData.width, userData.modo, H, W); //Creo objeto simulacion
+
+
+			valor_ticks = simu.run(valori, robot_imagen, piso_sucio, piso_limpio,sonido_robot);	//corro simulacion
+																					///simu.~simulacion(); //destruyo simulacion
+			printf("La simulacion termino correctamente\n Los %d robots hand terminado en %5.0f ticks \n", userData.cant_robots, valor_ticks);
+		}
+		else if (userData.modo == MODO_B)
+		{
+			double ticks_promedio[MAX_SIMS]; //arreglo donde guardo todos los promedios
 
 			int count_zer_Arr = 0;
+			
 			while (count_zer_Arr < MAX_SIMS)
 			{
+
 				ticks_promedio[count_zer_Arr++] = 0;
+
 			}
 
 			display = al_create_display(TAM_DISPLAY, TAM_DISPLAY);
@@ -127,7 +148,7 @@ int main(int argc, char *argv[])
 					break;
 					}*/
 					simulacion simu(i, userData.width, userData.height, userData.modo, H, W);
-					sum += simu.run(valori, robot_imagen, piso_sucio, piso_limpio, sonido_robot);
+					sum += simu.run(valori, robot_imagen, piso_sucio, piso_limpio,sonido_robot);
 					simu.~simulacion();
 
 				}
@@ -152,7 +173,7 @@ int main(int argc, char *argv[])
 	al_destroy_bitmap(piso_limpio);
 	al_destroy_bitmap(piso_sucio);
 	al_destroy_bitmap(robot_imagen);
-	
+
 	printf("Oprima enter para salir \n");
 	//al_destroy_display(display);
 	ALLEGRO_SAMPLE_ID musica_id;
@@ -203,19 +224,19 @@ bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BI
 		while (getchar() != '\n');
 		return false;
 	}
-	if ( !al_install_audio())
+	if (!al_install_audio())
 	{
 		printf("Error audio");
 		while (getchar() != '\n');
 		return false;
 	}
-	if( !al_init_acodec_addon())
+	if (!al_init_acodec_addon())
 	{
 		printf("Error audio codec");
 		while (getchar() != '\n');
 		return false;
 	}
-	if( !al_reserve_samples(2))
+	if (!al_reserve_samples(2))
 	{
 		printf("Error al cargar los samples");
 		while (getchar() != '\n');
@@ -226,4 +247,15 @@ bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BI
 	*musica2 = al_load_sample("aspiradora.wav");
 
 	return true;
+}
+
+
+bool are_parametres_ok(userInput_t userData)
+{
+	bool ret_value = false;
+	if ((userData.modo == 1) && ((userData.height) && (userData.width)) && (userData.cant_robots))
+		ret_value = true;
+	else if ((userData.modo == 2) && ((userData.height) && (userData.width)))
+		ret_value = true;
+	return ret_value;
 }
