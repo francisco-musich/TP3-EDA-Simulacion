@@ -50,12 +50,7 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 	//Cargo Imagenes
-	//display = al_create_display(800, 600);
 
-	/*if (!display) {
-		printf("error allegro");
-		return 0;
-	}*/
 	piso_limpio = al_load_bitmap("piso_limpio.jpg");	
 	if (!piso_limpio)
 	{
