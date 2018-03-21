@@ -8,7 +8,7 @@ piso::piso(unsigned int cantidad_filas2, unsigned int cantidad_columnas2,double 
 	tiles = (bool**)calloc(cantidad_filas2, sizeof(bool*));		//Primero creo un arreglo que contiene punteros a punteros a bool
 	for (int i = 0; i < cantidad_filas2; i++)
 	{
-		tiles[i] = (bool*)calloc(cantidad_filas2, sizeof(bool));	// lleno ese arreglo con punteros a arreglos de memoria dinamicos
+		tiles[i] = (bool*)calloc(cantidad_columnas2, sizeof(bool));	// lleno ese arreglo con punteros a arreglos de memoria dinamicos
 	}//para acceder a un valor usar tiles[i][j] MUCHISIMO CUIDADO QUE COMO ES UN MALLOC SI SE ME PASAN LOS I Y J HAGO QUILOMBO
 	cantidad_columnas = cantidad_columnas2;
 	cantidad_filas = cantidad_filas2;
