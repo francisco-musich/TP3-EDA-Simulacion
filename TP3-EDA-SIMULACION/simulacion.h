@@ -2,13 +2,21 @@
 #include "robot.h"
 #include"piso.h"
 
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_color.h>
+
+
 #define TIMER_TICK (1/24)
+
 class simulacion
 {
 public:
-	simulacion(unsigned int cant_robots, unsigned int filas, unsigned int columnas, int modo);
+	simulacion(unsigned int cant_robots, unsigned int filas, unsigned int columnas, int modo,double H, double W);
 	~simulacion();
-	unsigned int run();
+	unsigned int run(double valori, ALLEGRO_BITMAP * bitmap_robot,ALLEGRO_BITMAP * piso_sucio, ALLEGRO_BITMAP*piso_limpio);
 
 
 private:

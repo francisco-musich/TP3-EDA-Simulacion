@@ -1,4 +1,5 @@
 #include "display.h"
+#include"robot.h"
 #include<cstdlib>
 
 #define PI 3.14159265
@@ -80,26 +81,13 @@
 
 */
 
-void diagramabarras(unsigned int cantidad_robots, double * arregloR)
+void diagramabarras(int cantidad_robots, double * arregloR)
 {
-	//cambiar por                      void diagramabarras(double * arregloR)
-	//y tambien el display.h                   void diagramabarras(double * arregloR)
-
-	/*y descomentar esto:
-
-	int cantidad_robots;
-	unsigned int n = 0;
-	while ((arregloR[n] / arregloR[(n - 1)]) > 0, 1)
-	{
-		cantidad_robots++;
-	}
-	*/
-
-
+	
 	double easyx = H2 / 8.0;
 	double easyy = W2 / 8.0;
 	double maximoticks = maximo(arregloR, cantidad_robots); 	//funcion que da el maximoticks
-	double x1 = easyx * 6 / cantidad_robots; //constante para escalar el eje 
+	double x1 = easyx * 6 / (double) cantidad_robots; //constante para escalar el eje 
 	unsigned int c = 255 / cantidad_robots; //constante que escala cambio de color
 
 	ALLEGRO_FONT* font = al_create_builtin_font();
@@ -145,35 +133,24 @@ void diagramabarras(unsigned int cantidad_robots, double * arregloR)
 
 
 
-void displaypiso(unsigned int cantidad_filas, unsigned int cantidad_columnas, int arreglo[FIL][COL], double H, double W)
+void displaypiso(piso &floor, ALLEGRO_BITMAP * piso_sucio, ALLEGRO_BITMAP * piso_limpio, double valori)
 {
-	//esto no va
-	for (int i = 0; i < cantidad_filas; i++)
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+	for (int i = 0; i < floor.get_filas(); i++)
 	{
-		for (int j = 0; j < cantidad_columnas; j++)
+		for (int j = 0; j < floor.get_columnas(); j++)
 		{
-			arreglo[i][j] = 0;
-		}
-	}
-	//esto no va ^^^^^^^^^^^^^
-	double  valori = 200; //valor inicial del lado de baldosa
-	while (cantidad_filas*valori > 2000 || cantidad_columnas*valori >2000) //si el largo total o altura total superior es mayor a 1000, se divide valori por 2
-	{
-		valori = valori / 2;
-	}
-	double H = cantidad_filas*valori;
-	double W = cantidad_columnas*valori;
+			if(floor.state_tile(i, j))
+					//al_draw_filled_rectangle(i * (H / cantidad_filas), j * (W / cantidad_columnas), i * (H / cantidad_filas) + ((H / cantidad_filas) - 1), j * (W / cantidad_columnas) + ((W / cantidad_columnas) - 1), al_map_rgb(155, 50, 155));
+					al_draw_scaled_bitmap(piso_limpio, 0, 0, al_get_bitmap_width(piso_limpio), al_get_bitmap_height(piso_limpio), i * (floor.get_H() /floor.get_filas()), j * (floor.get_W() / floor.get_columnas()), valori - 1, valori - 1, 0);
+				else
+					//al_draw_filled_rectangle(i * (H / cantidad_filas), j * (W / cantidad_columnas), i * (H / cantidad_filas) + ((H / cantidad_filas) - 1), j * (W / cantidad_columnas) + ((W / cantidad_columnas) - 1), al_map_rgb(255, 0, 255));
+					al_draw_scaled_bitmap(piso_sucio, 0, 0, al_get_bitmap_width(piso_sucio), al_get_bitmap_height(piso_sucio), i * (floor.get_H() / floor.get_filas()), j * (floor.get_W() / floor.get_columnas()), valori - 1, valori - 1, 0);
 
-	for (int i = 0; i < cantidad_filas; i++)
-	{
-		for (int j = 0; j < cantidad_columnas; j++)
-		{
-			if(arreglo[i][j] == 1)
-				al_draw_filled_rectangle(i * (H / cantidad_filas), j * (W / cantidad_columnas), i * (H / cantidad_filas) + ((H / cantidad_filas) - 1), j * (W / cantidad_columnas) + ((W / cantidad_columnas) - 1), al_map_rgb(155, 50, 155));
-			else
-				al_draw_filled_rectangle(i * (H / cantidad_filas), j * (W / cantidad_columnas), i * (H / cantidad_filas) + ((H / cantidad_filas) - 1), j * (W / cantidad_columnas) + ((W / cantidad_columnas) - 1), al_map_rgb(255, 0, 255));
+
 		}
 	}
+	
 }
 
 double maximo(double * arregloR, int cantidad_robots)
@@ -189,4 +166,18 @@ double maximo(double * arregloR, int cantidad_robots)
 	}
 
 	return h;
+}
+
+void displayR(robot * rob_handler ,unsigned int cantidad_robots, double valori, ALLEGRO_BITMAP * bitmap)
+{
+	for (int i = 0; i < cantidad_robots; i++)
+	{
+		int x = floor(rob_handler[i].get_posicion_x());
+		int y = floor(rob_handler[i].get_posicion_y());
+		
+		//al_draw_filled_rectangle(y*valori + (valori / 5),  (x*valori) + (valori / 5), (y + 1)*valori - (valori / 5),  ((x + 1) * valori) - (valori / 5), (al_map_rgb(0, 0, 255)));
+		al_draw_scaled_bitmap(bitmap, 0, 0, al_get_bitmap_width(bitmap), al_get_bitmap_height(bitmap), y*valori + (valori / 5), (x*valori) + (valori / 5), valori * 3 / 5, valori * 3 / 5, 0);
+
+	}
+	
 }

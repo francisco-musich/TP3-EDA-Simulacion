@@ -3,34 +3,19 @@
 #include "piso.h"
 
 
-piso::piso(unsigned int cantidad_filas, unsigned int cantidad_columnas)
+piso::piso(unsigned int cantidad_filas2, unsigned int cantidad_columnas2,double H2,double W2)
 {	//creo matriz dinamica que contiene bools 1(limpio) 0 (sucio)
-	tiles = (bool**)calloc(cantidad_filas, sizeof(bool*));		//Primero creo un arreglo que contiene punteros a punteros a bool
-	for (int i = 0; i < cantidad_filas; i++)
+	tiles = (bool**)calloc(cantidad_filas2, sizeof(bool*));		//Primero creo un arreglo que contiene punteros a punteros a bool
+	for (int i = 0; i < cantidad_filas2; i++)
 	{
-		tiles[i] = (bool*)calloc(cantidad_filas, sizeof(bool));	// lleno ese arreglo con punteros a arreglos de memoria dinamicos
+		tiles[i] = (bool*)calloc(cantidad_filas2, sizeof(bool));	// lleno ese arreglo con punteros a arreglos de memoria dinamicos
 	}//para acceder a un valor usar tiles[i][j] MUCHISIMO CUIDADO QUE COMO ES UN MALLOC SI SE ME PASAN LOS I Y J HAGO QUILOMBO
+	cantidad_columnas = cantidad_columnas2;
+	cantidad_filas = cantidad_filas2;
+	H = H2;
+	W = W2;
 }
 
-bool piso::iniciar(unsigned int cantidad_fila, unsigned int cantidad_columna)
-{
-	bool ret = true;
-	tiles = (bool**)calloc(cantidad_fila, sizeof(bool*));		//Primero creo un arreglo que contiene punteros a punteros a bool
-	if (tiles)
-	{
-		for (int i = 0; i < cantidad_fila; i++)
-		{
-			tiles[i] = (bool*)calloc(cantidad_columna, sizeof(bool));	// lleno ese arreglo con punteros a arreglos de memoria dinamicos
-		}
-		cantidad_columnas = cantidad_columna;	//cambiar nombre de variables!!!
-		cantidad_filas = cantidad_fila;
-	}
-	else
-	{
-		ret = false;
-	}
-	return ret;
-}
 
 bool piso::clean(int x, int y)
 {
@@ -75,6 +60,15 @@ unsigned int piso::get_filas()
 unsigned int piso::get_columnas()
 {
 	return cantidad_columnas;
+}
+
+double piso::get_H()
+{
+	return H;
+}
+double piso::get_W()
+{
+	return W;
 }
 
 bool piso::state_tile(int x, int y)	//Devuelve el estado de la baldosa, true(limpia)  false (sucia)

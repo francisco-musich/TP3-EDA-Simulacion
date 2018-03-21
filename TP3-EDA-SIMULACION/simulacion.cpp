@@ -1,13 +1,21 @@
 #include "simulacion.h"
 #include "estructura.h"
+#include "display.h"
 #include<stdlib.h>
+#include<cstdio>
 #include<cmath>
 #include <Windows.h>
 
-simulacion::simulacion(unsigned int cant_robots, unsigned int filas, unsigned int columnas, int modo)
-	:f(filas, columnas)
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_color.h>
+
+simulacion::simulacion(unsigned int cant_robots, unsigned int filas, unsigned int columnas, int modo,double H,double W)
+	:f(filas, columnas,H,W)
 {
-	f.iniciar(filas, columnas);
+	//f.iniciar(filas, columnas);
 	rob_handler = (robot*)calloc(cant_robots, sizeof(robot));  //Creo malloc con cantidad de robots necesarios para crear
 	if (rob_handler == NULL)
 	{
@@ -26,25 +34,31 @@ simulacion::simulacion(unsigned int cant_robots, unsigned int filas, unsigned in
 	//return (rob_handler == NULL);
 }
 
-unsigned int simulacion::run()
+unsigned int simulacion::run(double valori, ALLEGRO_BITMAP * robot_image, ALLEGRO_BITMAP * piso_sucio, ALLEGRO_BITMAP * piso_limpio)
 {
 	unsigned int nro_ticks = 0;
-	if (mode == MODO1)		//Decido modo 1 i modo 2
+	if (mode == MODO_A)		//Decido modo 1 i modo 2
 	{
 		while (f.isDirty()) //Modo SImulacion
 		{
+			displaypiso(f,piso_sucio,piso_limpio,valori); //Funcion grafica
+			displayR(rob_handler, nro_robots, valori,robot_image);
+			al_flip_display();
+			//Sleep(TIMER_TICK * 1000); //Hay que verlo a ojo.
+			al_rest(0.4);
 			for (int i = 0; i < nro_robots; i++)	//muevo todos los robots a su nueva direccion
 			{
 				rob_handler[i].mover(f.get_filas(), f.get_columnas()); //muevo el robot
 				f.clean(floor(rob_handler[i].get_posicion_x()), floor(rob_handler[i].get_posicion_y()));	//limpio la baldosa corrspondiente
 			}
 
-			Sleep(TIMER_TICK * 1000); //Hay que verlo a ojo
-									  //imprimir_piso( f); //Funcion grafica.
+			
+			
 			nro_ticks++;
 		}
+		printf("a punto de terminar modo 1\n");
 	}
-	else
+	else if(mode == MODO_B)
 	{
 		while (f.isDirty()) //Modo analitico
 		{
@@ -60,9 +74,4 @@ unsigned int simulacion::run()
 	free(rob_handler);
 }
 
-
-simulacion::~simulacion()
-{
-	
-	//free(rob_handler);
-}
+simulacion::~simulacion() {}

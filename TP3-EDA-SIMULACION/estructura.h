@@ -1,14 +1,13 @@
 #pragma once
 
 typedef struct {
-	int height =0;
-	int width=0;
-	int cant_robots=0;
-	int modo=0;
+	int height ;
+	int width;
+	int cant_robots;
+	int modo;
 }userInput_t;
 
-#define MODO1 1
-#define MODO2 2
+enum modos {MODO_A=1, MODO_B};
 
 #define ERRORTYPE1 1
 #define ERRORTYPE2 2
@@ -17,3 +16,8 @@ typedef struct {
 
 #define MAX_SIMS 1000
 #define MAX_ROBOTS 1000
+
+#define LADO_BALDOSA_MAX 200
+#define TAM_MAX_DISPLAY 1200
+
+#define TAM_DISPLAY 1200
