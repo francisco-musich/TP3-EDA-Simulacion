@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
 					break;
 					}*/
 					simulacion simu(i, userData.width, userData.height, userData.modo, H, W);
-					sum += simu.run(valori, robot_imagen, piso_sucio, piso_limpio);
+					sum += simu.run(valori, robot_imagen, piso_sucio, piso_limpio, sonido_robot);
 					simu.~simulacion();
 
 				}
