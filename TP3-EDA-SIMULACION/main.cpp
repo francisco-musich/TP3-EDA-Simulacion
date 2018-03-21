@@ -200,7 +200,7 @@ bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BI
 		while (getchar() != '\n');
 		return false;
 	}
-	if( !al_reserve_samples(1))
+	if( !al_reserve_samples(2))
 	{
 		printf("Error al cargar los samples");
 		while (getchar() != '\n');
