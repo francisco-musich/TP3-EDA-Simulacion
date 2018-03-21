@@ -11,8 +11,8 @@ using namespace std;
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
-
-//INCLUIR HEADERS
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #include "simulacion.h"
 #include "robot.h"
@@ -25,6 +25,7 @@ using namespace std;
 #include"parseCmdLine.h"
 #include "estructura.h"
 
+bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BITMAP **piso_limpio, ALLEGRO_BITMAP **robot_imagen);
 
 int main(int argc, char *argv[])
 {
@@ -36,49 +37,14 @@ int main(int argc, char *argv[])
 	ALLEGRO_BITMAP *piso_limpio = NULL;
 	ALLEGRO_BITMAP *robot_imagen = NULL;
 
-	if (!al_init()) {
-		fprintf(stderr, "Couldn't initialize allegro!\n");
+	if (!init_al(&display, &piso_sucio, &piso_limpio, &robot_imagen))
 		return -1;
-	}
-
-	if (!al_init_image_addon()) {
-		printf( "Failed to initialize al_init_image_addon! \n");
-		return 0;
-	}
-	if (!al_init_primitives_addon()) {
-		fprintf(stderr, "Couldn't initialize primitives addon!\n");
-		return -1;
-	}
-	//Cargo Imagenes
-
-	piso_limpio = al_load_bitmap("piso_limpio.jpg");	
-	if (!piso_limpio)
-	{
-		printf("Error piso limpio");
-		while (getchar() != '\n');
-		return 0;
-	}
-	piso_sucio = al_load_bitmap("piso_sucio.jpg");
-	if (!piso_sucio)
-	{
-		printf("Error piso sucio");
-		while (getchar() != '\n');
-		return 0;
-	}
-	robot_imagen = al_load_bitmap("rooma.jpg");
-	if (!robot_imagen)
-	{
-		printf("Error robot");
-		while (getchar() != '\n');
-		return 0;
-	}
-
-
 
 	//ALLEGRO INICIALIZADO
 	unsigned int test;
 	userInput_t userData = { 0,0,0,0 }; //crear estructura para el parser
 
+	ALLEGRO_SAMPLE * musiquita = NULL;
 
 	switch (parseCmdLine(argc, argv, &organizeInfo, &userData))
 	{
@@ -181,4 +147,64 @@ int main(int argc, char *argv[])
 	//al_destroy_display(display);
 	while (getchar() != '\n');
 	al_destroy_display(display);
+	al_uninstall_audio();
+}
+
+bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BITMAP **piso_limpio, ALLEGRO_BITMAP **robot_imagen) {
+
+	if (!al_init()) {
+		fprintf(stderr, "Couldn't initialize allegro!\n");
+		return false;
+	}
+
+	if (!al_init_image_addon()) {
+		printf("Failed to initialize al_init_image_addon! \n");
+		return false;
+	}
+	if (!al_init_primitives_addon()) {
+		fprintf(stderr, "Couldn't initialize primitives addon!\n");
+		return false;
+	}
+	//Cargo Imagenes
+
+	*piso_limpio = al_load_bitmap("piso_limpio.jpg");
+	if (!piso_limpio)
+	{
+		printf("Error piso limpio");
+		while (getchar() != '\n');
+		return false;
+	}
+	*piso_sucio = al_load_bitmap("piso_sucio.jpg");
+	if (!piso_sucio)
+	{
+		printf("Error piso sucio");
+		while (getchar() != '\n');
+		return false;
+	}
+	*robot_imagen = al_load_bitmap("rooma.jpg");
+	if (!robot_imagen)
+	{
+		printf("Error robot");
+		while (getchar() != '\n');
+		return false;
+	}
+	if ( !al_install_audio())
+	{
+		printf("Error audio");
+		while (getchar() != '\n');
+		return false;
+	}
+	if( !al_init_acodec_addon())
+	{
+		printf("Error audio codec");
+		while (getchar() != '\n');
+		return false;
+	}
+	if( !al_reserve_samples(1))
+	{
+		printf("Error al cargar los samples");
+		while (getchar() != '\n');
+		return false;
+	}
+	return true;
 }

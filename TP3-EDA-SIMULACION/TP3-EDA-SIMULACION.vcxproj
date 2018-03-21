@@ -83,6 +83,7 @@
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonAudio>true</Allegro_AddonAudio>
     <Allegro_LibraryType>DynamicDebug</Allegro_LibraryType>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
