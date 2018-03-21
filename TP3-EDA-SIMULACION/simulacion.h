@@ -7,7 +7,8 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
-
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #define TIMER_TICK (1/24)
 
@@ -43,12 +44,12 @@ public:
 	2) bitmap_robot : foto que se utilizara para mostrar la posicion del robot durante la simulacion.
 	3) piso_sucio : foto que se utilizara para mostrar la baldosa de piso sucio durante la simulacion.
 	4) piso_limpio : foto que se utilizara para mostrar la baldosa de piso limpio durante la simulacion.
+	5) musica : musica de fondo que se correra con la simulacion.
 
 	OUTPUT:
 			void.
 	*/
-	unsigned int run(double valori, ALLEGRO_BITMAP * bitmap_robot,ALLEGRO_BITMAP * piso_sucio, ALLEGRO_BITMAP*piso_limpio);
-
+	unsigned int run(double valori, ALLEGRO_BITMAP * robot_image, ALLEGRO_BITMAP * piso_sucio, ALLEGRO_BITMAP * piso_limpio, ALLEGRO_SAMPLE * sonido_move);
 
 private:
 

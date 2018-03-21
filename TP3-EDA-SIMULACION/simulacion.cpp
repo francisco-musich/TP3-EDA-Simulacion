@@ -12,6 +12,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_color.h>
 
+
 simulacion::simulacion(unsigned int cant_robots, unsigned int filas, unsigned int columnas, int modo,double H,double W)
 	:f(filas, columnas,H,W)
 {
@@ -34,11 +35,14 @@ simulacion::simulacion(unsigned int cant_robots, unsigned int filas, unsigned in
 	//return (rob_handler == NULL);
 }
 
-unsigned int simulacion::run(double valori, ALLEGRO_BITMAP * robot_image, ALLEGRO_BITMAP * piso_sucio, ALLEGRO_BITMAP * piso_limpio)
+unsigned int simulacion::run(double valori, ALLEGRO_BITMAP * robot_image, ALLEGRO_BITMAP * piso_sucio, ALLEGRO_BITMAP * piso_limpio, ALLEGRO_SAMPLE * sonido_move)
 {
+
 	unsigned int nro_ticks = 0;
 	if (mode == MODO_A)		//Decido modo 1 i modo 2
 	{
+		ALLEGRO_SAMPLE_ID move_id;
+		al_play_sample(sonido_move, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &move_id);
 		while (f.isDirty()) //Modo SImulacion
 		{
 			/*
@@ -59,7 +63,7 @@ unsigned int simulacion::run(double valori, ALLEGRO_BITMAP * robot_image, ALLEGR
 			
 			nro_ticks++;
 		}
-		
+		al_stop_sample(&move_id);
 		
 	}
 	else if(mode == MODO_B)

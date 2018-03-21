@@ -25,7 +25,7 @@ using namespace std;
 #include"parseCmdLine.h"
 #include "estructura.h"
 
-bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BITMAP **piso_limpio, ALLEGRO_BITMAP **robot_imagen);
+bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BITMAP **piso_limpio, ALLEGRO_BITMAP **robot_imagen, ALLEGRO_SAMPLE ** musica1, ALLEGRO_SAMPLE ** musica2);
 
 int main(int argc, char *argv[])
 {
@@ -36,15 +36,16 @@ int main(int argc, char *argv[])
 	ALLEGRO_BITMAP *piso_sucio = NULL;
 	ALLEGRO_BITMAP *piso_limpio = NULL;
 	ALLEGRO_BITMAP *robot_imagen = NULL;
+	ALLEGRO_SAMPLE * musiquita = NULL;
+	ALLEGRO_SAMPLE * sonido_robot = NULL;
 
-	if (!init_al(&display, &piso_sucio, &piso_limpio, &robot_imagen))
+
+	if (!init_al(&display, &piso_sucio, &piso_limpio, &robot_imagen, &musiquita, &sonido_robot))
 		return -1;
 
 	//ALLEGRO INICIALIZADO
 	unsigned int test;
 	userInput_t userData = { 0,0,0,0 }; //crear estructura para el parser
-
-	ALLEGRO_SAMPLE * musiquita = NULL;
 
 	switch (parseCmdLine(argc, argv, &organizeInfo, &userData))
 	{
@@ -88,7 +89,7 @@ int main(int argc, char *argv[])
 
 		simulacion simu(userData.cant_robots, userData.height, userData.width, userData.modo,H,W); //Creo objeto simulacion
 
-		valor_ticks = simu.run(valori,robot_imagen, piso_sucio, piso_limpio);	//corro simulacion
+		valor_ticks = simu.run(valori,robot_imagen, piso_sucio, piso_limpio, sonido_robot);	//corro simulacion
 		///simu.~simulacion(); //destruyo simulacion
 		printf("La simulacion termino correctamente\n Los %d robots hand terminado en %5.0f ticks \n",userData.cant_robots,valor_ticks);
 	}
@@ -122,7 +123,7 @@ int main(int argc, char *argv[])
 				break;
 				}*/
 				simulacion simu(i, userData.width, userData.height, userData.modo, H, W);
-				sum += simu.run(valori,robot_imagen,piso_sucio,piso_limpio);			
+				sum += simu.run(valori,robot_imagen,piso_sucio,piso_limpio, sonido_robot);
 				simu.~simulacion();
 				
 			}
@@ -145,12 +146,17 @@ int main(int argc, char *argv[])
 	
 	printf("Oprima enter para salir \n");
 	//al_destroy_display(display);
+	ALLEGRO_SAMPLE_ID musica_id;
+	al_play_sample(musiquita, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, &musica_id);
 	while (getchar() != '\n');
+	al_stop_sample(&musica_id);
+	al_destroy_sample(musiquita);
+	al_destroy_sample(sonido_robot);
 	al_destroy_display(display);
 	al_uninstall_audio();
 }
 
-bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BITMAP **piso_limpio, ALLEGRO_BITMAP **robot_imagen) {
+bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BITMAP **piso_limpio, ALLEGRO_BITMAP **robot_imagen, ALLEGRO_SAMPLE ** musica1, ALLEGRO_SAMPLE ** musica2) {
 
 	if (!al_init()) {
 		fprintf(stderr, "Couldn't initialize allegro!\n");
@@ -206,5 +212,9 @@ bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BI
 		while (getchar() != '\n');
 		return false;
 	}
+
+	*musica1 = al_load_sample("piano.wav");
+	*musica2 = al_load_sample("aspiradora.wav");
+
 	return true;
 }
