@@ -9,10 +9,10 @@ typedef struct {
 
 enum modos {MODO_A=1, MODO_B};
 
-#define ERRORTYPE1 1
-#define ERRORTYPE2 2
-#define ERRORTYPE3 3
-#define myNOERROR 4
+#define ERRORTYPE1 7
+#define ERRORTYPE2 8
+#define ERRORTYPE3 9
+#define myNOERROR 10
 
 #define MAX_SIMS 1000
 #define MAX_ROBOTS 1000

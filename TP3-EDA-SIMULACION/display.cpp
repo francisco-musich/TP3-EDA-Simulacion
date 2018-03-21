@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <math.h>
 
+
+double maximo(double * arregloR, int cantidad_robots);
 /*
 	double  valori = 200; //valor inicial del lado de baldosa
 	while (FIL*valori > 2000 || COL * valori >2000) //si el largo total o altura total superior es mayor a 1000, se divide valori por 2
