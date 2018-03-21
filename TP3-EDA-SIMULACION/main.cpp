@@ -25,7 +25,10 @@ using namespace std;
 #include"parseCmdLine.h"
 #include "estructura.h"
 
+//PROTOTIPOS FUNCIONES INTERNAS
+bool are_parametres_ok(userInput_t userData);
 bool init_al(ALLEGRO_DISPLAY ** display, ALLEGRO_BITMAP **piso_sucio, ALLEGRO_BITMAP **piso_limpio, ALLEGRO_BITMAP **robot_imagen, ALLEGRO_SAMPLE ** musica1, ALLEGRO_SAMPLE ** musica2);
+
 
 int main(int argc, char *argv[])
 {
@@ -75,19 +78,20 @@ int main(int argc, char *argv[])
 	double H = userData.height * valori;
 	double W = userData.width * valori;
 
-	
-	if (userData.modo == MODO_A)
+	if (are_parametres_ok(userData))
 	{
-		double valor_ticks;
-		display = al_create_display(H, W);
-		if (!display) {
-			fprintf(stderr, "Couldn't create allegro display!\n");
-			return -1;
-		}
+		if (userData.modo == MODO_A)
+		{
+			double valor_ticks;
+			display = al_create_display(H, W);
+			if (!display) {
+				fprintf(stderr, "Couldn't create allegro display!\n");
+				return -1;
+			}
 
-		al_clear_to_color(al_map_rgb(0, 0, 0));
+			al_clear_to_color(al_map_rgb(0, 0, 0));
 
-		simulacion simu(userData.cant_robots, userData.height, userData.width, userData.modo,H,W); //Creo objeto simulacion
+			simulacion simu(userData.cant_robots, userData.height, userData.width, userData.modo, H, W); //Creo objeto simulacion
 
 		valor_ticks = simu.run(valori,robot_imagen, piso_sucio, piso_limpio, sonido_robot);	//corro simulacion
 		///simu.~simulacion(); //destruyo simulacion
@@ -97,48 +101,53 @@ int main(int argc, char *argv[])
 	{
 		double ticks_promedio[MAX_SIMS]; //arreglo donde guardo todos los promedios
 
-		int count_zer_Arr = 0;
-		while (count_zer_Arr < MAX_SIMS) 
-		{
-			ticks_promedio[count_zer_Arr++] = 0;
-		}
-		
-		display = al_create_display(TAM_DISPLAY, TAM_DISPLAY);
-		if (!display) {
-			fprintf(stderr, "Couldn't create allegro display!\n");
-			return -1;
-		}
+			int count_zer_Arr = 0;
+			while (count_zer_Arr < MAX_SIMS)
+			{
+				ticks_promedio[count_zer_Arr++] = 0;
+			}
 
-		al_clear_to_color(al_map_rgb(0, 0, 0));
-		int j;
-		for (int i = 2,j=0; i < MAX_ROBOTS; i++,j++)	//falta agregar condicional s(n-1)-s(n)<1
-		{
-			
-			double sum = 0.0;
-		
-			for (int cant_sim = 0; ((cant_sim < MAX_SIMS)/*&&( (ticks_promedio[i-2]-ticks_promedio[i-3]) > 0,1) )*/); cant_sim++)
-			{
-				/*if((ticks_promedio[i - 1] - ticks_promedio[i - 2]) <=  1)
-				{
-				break;
-				}*/
-				simulacion simu(i, userData.width, userData.height, userData.modo, H, W);
-				sum += simu.run(valori,robot_imagen,piso_sucio,piso_limpio, sonido_robot);
-				simu.~simulacion();
-				
+			display = al_create_display(TAM_DISPLAY, TAM_DISPLAY);
+			if (!display) {
+				fprintf(stderr, "Couldn't create allegro display!\n");
+				return -1;
 			}
-			ticks_promedio[j] = sum / MAX_SIMS;
-			if (abs(ticks_promedio[j - 1] - ticks_promedio[j ]) <= 0.1)
-			{
-				break;
-			}
-			//printf("ticks promedio = %f, cantidad robots = %d", (sum / MAX_SIMS),i);
-			//while (getchar() != '\n');
-			diagramabarras(i, ticks_promedio);
-			al_rest(0.05);
+
 			al_clear_to_color(al_map_rgb(0, 0, 0));
+			int j;
+			for (int i = 2, j = 0; i < MAX_ROBOTS; i++, j++)	//falta agregar condicional s(n-1)-s(n)<1
+			{
+
+				double sum = 0.0;
+
+				for (int cant_sim = 0; ((cant_sim < MAX_SIMS)/*&&( (ticks_promedio[i-2]-ticks_promedio[i-3]) > 0,1) )*/); cant_sim++)
+				{
+					/*if((ticks_promedio[i - 1] - ticks_promedio[i - 2]) <=  1)
+					{
+					break;
+					}*/
+					simulacion simu(i, userData.width, userData.height, userData.modo, H, W);
+					sum += simu.run(valori, robot_imagen, piso_sucio, piso_limpio);
+					simu.~simulacion();
+
+				}
+				ticks_promedio[j] = sum / MAX_SIMS;
+				if (abs(ticks_promedio[j - 1] - ticks_promedio[j]) <= 0.1)
+				{
+					break;
+				}
+				//printf("ticks promedio = %f, cantidad robots = %d", (sum / MAX_SIMS),i);
+				//while (getchar() != '\n');
+				diagramabarras(i, ticks_promedio);
+				al_rest(0.05);
+				al_clear_to_color(al_map_rgb(0, 0, 0));
+			}
+			printf("Modo analitico finalizado. Se muestra el grafico con los ticks promedio en funcion de la cantidad de robots.\n");
 		}
-		
+	}
+	else
+	{
+		printf("Parametros incorrectos, por favor revise su entrada \n");
 	}
 	al_destroy_bitmap(piso_limpio);
 	al_destroy_bitmap(piso_sucio);
