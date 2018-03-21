@@ -50,21 +50,27 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 	//Cargo Imagenes
-	piso_limpio = al_load_bitmap("piso_limpio_posta,png");	
+	//display = al_create_display(800, 600);
+
+	/*if (!display) {
+		printf("error allegro");
+		return 0;
+	}*/
+	piso_limpio = al_load_bitmap("piso_limpio.jpg");	
 	if (!piso_limpio)
 	{
 		printf("Error piso limpio");
 		while (getchar() != '\n');
 		return 0;
 	}
-	piso_sucio = al_load_bitmap("piso_sucio_posta.png");
+	piso_sucio = al_load_bitmap("piso_sucio.jpg");
 	if (!piso_sucio)
 	{
 		printf("Error piso sucio");
 		while (getchar() != '\n');
 		return 0;
 	}
-	robot_imagen = al_load_bitmap("robot.png");
+	robot_imagen = al_load_bitmap("rooma.jpg");
 	if (!robot_imagen)
 	{
 		printf("Error robot");
@@ -110,6 +116,7 @@ int main(int argc, char *argv[])
 	
 	if (userData.modo == MODO_A)
 	{
+		double valor_ticks;
 		display = al_create_display(H, W);
 		if (!display) {
 			fprintf(stderr, "Couldn't create allegro display!\n");
@@ -120,9 +127,9 @@ int main(int argc, char *argv[])
 
 		simulacion simu(userData.cant_robots, userData.height, userData.width, userData.modo,H,W); //Creo objeto simulacion
 
-		test = simu.run(valori,robot_imagen, piso_sucio, piso_limpio);	//corro simulacion
+		valor_ticks = simu.run(valori,robot_imagen, piso_sucio, piso_limpio);	//corro simulacion
 		///simu.~simulacion(); //destruyo simulacion
-		
+		printf("La simulacion termino correctamente\n Los %d robots hand terminado en %5.0f ticks \n",userData.cant_robots,valor_ticks);
 	}
 	else if (userData.modo == MODO_B)
 	{
@@ -171,6 +178,12 @@ int main(int argc, char *argv[])
 		}
 		
 	}
-	printf("el programa finalizo corretamente");
+	al_destroy_bitmap(piso_limpio);
+	al_destroy_bitmap(piso_sucio);
+	al_destroy_bitmap(robot_imagen);
+	
+	printf("Oprima enter para salir \n");
+	//al_destroy_display(display);
 	while (getchar() != '\n');
+	al_destroy_display(display);
 }

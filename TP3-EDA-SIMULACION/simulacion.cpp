@@ -41,22 +41,26 @@ unsigned int simulacion::run(double valori, ALLEGRO_BITMAP * robot_image, ALLEGR
 	{
 		while (f.isDirty()) //Modo SImulacion
 		{
+			/*
 			displaypiso(f,piso_sucio,piso_limpio,valori); //Funcion grafica
 			displayR(rob_handler, nro_robots, valori,robot_image);
 			al_flip_display();
 			//Sleep(TIMER_TICK * 1000); //Hay que verlo a ojo.
-			al_rest(0.4);
+			al_rest(0.2);*/
 			for (int i = 0; i < nro_robots; i++)	//muevo todos los robots a su nueva direccion
 			{
 				rob_handler[i].mover(f.get_filas(), f.get_columnas()); //muevo el robot
 				f.clean(floor(rob_handler[i].get_posicion_x()), floor(rob_handler[i].get_posicion_y()));	//limpio la baldosa corrspondiente
 			}
-
-			
+			al_rest(0.1);
+			displaypiso(f, piso_sucio, piso_limpio, valori); //Funcion grafica
+			displayR(rob_handler, nro_robots, valori, robot_image);
+			al_flip_display();
 			
 			nro_ticks++;
 		}
-		printf("a punto de terminar modo 1\n");
+		
+		
 	}
 	else if(mode == MODO_B)
 	{
