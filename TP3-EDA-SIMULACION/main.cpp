@@ -26,6 +26,8 @@ using namespace std;
 #include "estructura.h"
 
 
+//hhhhh
+
 int main(int argc, char *argv[])
 {
 	//INICIALIZAR ALLEGRO
