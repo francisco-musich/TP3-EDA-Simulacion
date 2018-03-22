@@ -45,12 +45,8 @@ unsigned int simulacion::run(double valori, ALLEGRO_BITMAP * robot_image, ALLEGR
 		al_play_sample(sonido_move, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, &move_id);
 		while (f.isDirty()) //Modo SImulacion
 		{
-			/*
-			displaypiso(f,piso_sucio,piso_limpio,valori); //Funcion grafica
-			displayR(rob_handler, nro_robots, valori,robot_image);
-			al_flip_display();
-			//Sleep(TIMER_TICK * 1000); //Hay que verlo a ojo.
-			al_rest(0.2);*/
+			
+			al_rest(0.2);
 			for (int i = 0; i < nro_robots; i++)	//muevo todos los robots a su nueva direccion
 			{
 				rob_handler[i].mover(f.get_filas(), f.get_columnas()); //muevo el robot

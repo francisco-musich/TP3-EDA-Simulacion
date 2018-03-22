@@ -104,28 +104,15 @@ int main(int argc, char *argv[])
 																									///simu.~simulacion(); //destruyo simulacion
 			printf("La simulacion termino correctamente\n Los %d robots hand terminado en %5.0f ticks \n", userData.cant_robots, valor_ticks);
 		}
-		else if (userData.modo == MODO_B)
-		{
-			double ticks_promedio[MAX_SIMS]; //arreglo donde guardo todos los promedios
-
-			simulacion simu(userData.cant_robots, userData.height, userData.width, userData.modo, H, W); //Creo objeto simulacion
-
-
-			valor_ticks = simu.run(valori, robot_imagen, piso_sucio, piso_limpio,sonido_robot);	//corro simulacion
-																					///simu.~simulacion(); //destruyo simulacion
-			printf("La simulacion termino correctamente\n Los %d robots hand terminado en %5.0f ticks \n", userData.cant_robots, valor_ticks);
-		}
+		
 		else if (userData.modo == MODO_B)
 		{
 			double ticks_promedio[MAX_SIMS]; //arreglo donde guardo todos los promedios
 
 			int count_zer_Arr = 0;
-			
 			while (count_zer_Arr < MAX_SIMS)
 			{
-
 				ticks_promedio[count_zer_Arr++] = 0;
-
 			}
 
 			display = al_create_display(TAM_DISPLAY, TAM_DISPLAY);
@@ -141,7 +128,7 @@ int main(int argc, char *argv[])
 
 				double sum = 0.0;
 
-				for (int cant_sim = 0; ((cant_sim < MAX_SIMS)/*&&( (ticks_promedio[i-2]-ticks_promedio[i-3]) > 0,1) )*/); cant_sim++)
+				for (int cant_sim = 0; ((cant_sim < MAX_SIMS) &&( (ticks_promedio[i-2]-ticks_promedio[i-3]) > 0,1) ); cant_sim++)
 				{
 					/*if((ticks_promedio[i - 1] - ticks_promedio[i - 2]) <=  1)
 					{
