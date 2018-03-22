@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
 	srand(time(NULL));
 
 	double  valori = LADO_BALDOSA_MAX; //valor inicial del lado de baldosa
+	
 	while (userData.height*valori > TAM_MAX_DISPLAY || userData.width * valori >TAM_MAX_DISPLAY) //si el largo total o altura total superior es mayor a 1000, se divide valori por 2
 	{
 		valori = valori / 2;
@@ -134,7 +135,7 @@ int main(int argc, char *argv[])
 					{
 					break;
 					}*/
-					simulacion simu(i, userData.width, userData.height, userData.modo, H, W);
+					simulacion simu(i, userData.height, userData.width, userData.modo, H, W);
 					sum += simu.run(valori, robot_imagen, piso_sucio, piso_limpio,sonido_robot);
 					simu.~simulacion();
 
@@ -144,8 +145,7 @@ int main(int argc, char *argv[])
 				{
 					break;
 				}
-				//printf("ticks promedio = %f, cantidad robots = %d", (sum / MAX_SIMS),i);
-				//while (getchar() != '\n');
+
 				diagramabarras(i, ticks_promedio);
 				al_rest(0.05);
 				al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -162,7 +162,6 @@ int main(int argc, char *argv[])
 	al_destroy_bitmap(robot_imagen);
 
 	printf("Oprima enter para salir \n");
-	//al_destroy_display(display);
 	ALLEGRO_SAMPLE_ID musica_id;
 	al_play_sample(musiquita, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, &musica_id);
 	while (getchar() != '\n');
@@ -244,5 +243,6 @@ bool are_parametres_ok(userInput_t userData)
 		ret_value = true;
 	else if ((userData.modo == 2) && ((userData.height) && (userData.width)))
 		ret_value = true;
+
 	return ret_value;
 }

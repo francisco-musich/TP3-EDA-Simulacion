@@ -23,7 +23,7 @@ int organizeInfo(char * pass, char * value, void * userData)
 			else
 				retValue = ERRORTYPE3;
 		}
-		else if (!(usr->width) && !strcmp(_strlwr((char *)pass), "width"))
+		else if (!(usr->width) && !strcmp(_strlwr((char *)pass), "width"))		
 		{
 			if ((atoi(value) <= 100) && (atof(value) > 0))
 				usr->width = atoi(value);
